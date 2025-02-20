@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gato Preto - Lanches Delivery</title>
+    
+    <!-- Descrição para SEO -->
+    <meta name="description" content="Peça os melhores lanches, porções e bebidas do Gato Preto diretamente do nosso delivery!">
+    <meta name="author" content="Gato Preto">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph (Facebook, WhatsApp, Instagram) -->
+    <meta property="og:title" content="Gato Preto - Lanches Delivery" />
+    <meta property="og:description" content="Os melhores lanches e porções com entrega rápida. Peça agora!" />
+    <meta property="og:image" content="https://www.gatopreto.com.br/imagens/logo.png" /> <!-- URL real -->
+    <meta property="og:url" content="https://www.gatopreto.com.br" />
+    <meta property="og:type" content="website" />
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Gato Preto - Lanches Delivery" />
+    <meta name="twitter:description" content="Lanches deliciosos, entrega rápida! Peça já no nosso delivery." />
+    <meta name="twitter:image" content="https://www.gatopreto.com.br/imagens/logo.png" />
+
+    <!-- Meta tags para exibição no WhatsApp, Facebook e Instagram -->
+    <meta property="og:title" content="Gato Preto - Lanches Delivery 🍔🚀" />
+    <meta property="og:description" content="Peça os melhores lanches e porções com entrega rápida e sabor incrível! 🍟🥤 Peça agora!" />
+    <meta property="og:image" content="https://www.gatopreto.com.br/imagens/logo.png" />
+    <meta property="og:url" content="https://www.gatopreto.com.br" />
+    <meta property="og:type" content="website" />
+
+    
+    <!-- Ícone do site (Favicon) -->
+    <link rel="icon" type="image/png" href="https://www.gatopreto.com.br/favicon.png">
+    
+</head>
+<body>
+    <h1>Bem-vindo ao Gato Preto - Lanches Delivery!</h1>
+</body>
+</html>
+
+    <style>
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #222;
+            color: white;
+            text-align: center;
+        }
+
+        #order-summary {
+        text-align: left;   /* Alinha o texto à esquerda */
+        margin-bottom: 20px; /* Dá um espaço abaixo do resumo */
+        font-size: 14px;    /* Ajusta o tamanho da fonte */
+        white-space: pre-line; /* Mantém a formatação de quebras de linha */
+        font-family: monospace; /* Garante alinhamento fixo entre caracteres */
+        }
+
+        
+
+        .total-destaque {
+            font-size: 1.5em; /* Aumenta o tamanho da fonte */
+            font-weight: bold; /* Deixa em negrito */
+            color: orange; /* Destaca a cor do total */
+        }
+
+
+
+        .category {
+            display: none;
+        }
+
+        .menu-items {
+    display: none;
+}
+.menu-items.active {
+    display: block;
+}
+
+        .active {
+            display: block;
+        }
+
+        .logo {
+            width: 150px;
+            margin: 20px auto;
+            display: block;
+        }
+        .menu {
+            max-width: 600px;
+            margin: auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        .tab-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tab-buttons button {
+            background: #444;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+        .tab-buttons button:hover {
+            background: #555;
+        }
+        .item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            justify-content: flex-start;
+            background-color: #444; /* Fundo de cada item */
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+
+        .controls {
+            display: flex;
+            align-items: center;
+            margin-right: 10px;
+        }
+        .btn {
+            background: orange;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background: darkorange;
+        }
+        input[type="number"] {
+            width: 40px;
+            text-align: center;
+            background-color: #333;
+            color: white;
+            border: 1px solid #444;
+            font-size: 1em;
+            margin: 0 10px;
+        }
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        
+
+        .description {
+            font-size: 0.9em;
+            color: #bbb;
+            margin-top: 5px;
+        }
+        .category {
+            display: none; /* Esconde as categorias por padrão */
+        }
+        .active {
+            display: block; /* Exibe a categoria ativa */
+        }
+
+        /* Estilo para o Popup de Endereço */
+        #popup-endereco {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #popup-endereco div {
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: justify;
+            width: 100%;
+            max-width: 400px;
+        }
+        #popup-endereco input, #popup-endereco select {
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+            border: 1px solid #444;
+            background-color: #333;
+            color: white;
+        }
+        #popup-endereco button {
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        #popup-endereco button:hover {
+            background: darkorange;
+        }
+        #troco-div {
+            display: none;
+        }
+
+        /* Estilo para o botão "Confirmar Pedido" */
+        .confirmar-pedido-btn {
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1.1em;
+            margin-top: 20px;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .confirmar-pedido-btn:hover {
+            background: darkorange;
+        }
+
+        /* Estilo para o Popup de Confirmação de Pedido */
+        #popup-confirmation {
+            display: none;
+            background: rgba(0, 0, 0, 0.7);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        #popup-confirmation div {
+            background: #444;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+        #popup-confirmation button {
+            background: orange;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        #popup-confirmation button:hover {
+            background: darkorange;
+        }
+        #popup-confirmation .cancel {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <!-- Abas para selecionar categorias -->
+    <div class="tab-buttons">
+        <button onclick="showMenu('lanches')">Lanches 🍔</button>
+        <button onclick="showMenu('porcoes')">Porções 🍟</button>
+        <button onclick="showMenu('bebidas')">Bebidas 🥤</button>
+    </div>
+
+    <!-- Menu -->
+    <div class="menu">
+        <!-- Categoria de Lanches -->
+        <div class="menu-items" id="lanches">
+        <div class="item">
+            <div class="controls">
+                <button class="btn" onclick="updateQuantity('X-Frango Bacon Egg', 'decrease')">-</button>
+                <input type="number" id="X-Frango Bacon Egg-quantity" value="0" readonly>
+                <button class="btn" onclick="updateQuantity('X-Frango Bacon Egg', 'increase')">+</button>
+            </div>
+            <div class="text-content">
+                <span>X-Frango Bacon Egg</span>
+                <p class="description">Frango grelhado, bacon crocante e ovo frito, tudo no pão.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categoria de Porções -->
+    <div class="menu-items" id="porcoes">
+        <div class="item">
+            <div class="controls">
+                <button class="btn" onclick="updateQuantity('Batata Frita', 'decrease')">-</button>
+                <input type="number" id="Batata Frita-quantity" value="0" readonly>
+                <button class="btn" onclick="updateQuantity('Batata Frita', 'increase')">+</button>
+            </div>
+            <div class="text-content">
+                <span>Batata Frita</span>
+                <p class="description">Porção de batatas fritas crocantes.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Categoria de Bebidas -->
+    <div class="menu-items" id="bebidas">
+        <div class="item">
+            <div class="controls">
+                <button class="btn" onclick="updateQuantity('Refrigerante', 'decrease')">-</button>
+                <input type="number" id="Refrigerante-quantity" value="0" readonly>
+                <button class="btn" onclick="updateQuantity('Refrigerante', 'increase')">+</button>
+            </div>
+            <div class="text-content">
+                <span>Refrigerante</span>
+                <p class="description">Refrigerante gelado para acompanhar seu lanche.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Botão para confirmar o pedido -->
+    <button class="confirmar-pedido-btn" id="confirmar-pedido" onclick="askAddress()">Confirmar Pedido</button>
+
+    <!-- Popup para inserção de endereço -->
+    <div id="popup-endereco">
+        <div>
+            <h3>Digite seu endereço para entrega</h3>
+            <input type="text" id="nome" placeholder="Nome" required="">
+            <input type="text" id="endereco" placeholder="Endereço de entrega" required="">
+            <input type="text" id="bairro" placeholder="Bairro" required="">
+            <input type="text" id="numero" placeholder="Número" required="">
+            <input type="text" id="complemento" placeholder="Complemento (opcional)">
+            
+            <h4>Forma de Pagamento</h4>
+            <select id="forma-pagamento" required>
+                <option value="" selected disabled>Selecionar pagamento</option>
+                <option value="pix">Pix</option>
+                <option value="maquina">Máquina</option>
+                <option value="dinheiro">Dinheiro</option>
+            </select>
+            <div id="troco-div" style="display: none;">
+                <label for="troco">Quanto em dinheiro?</label>
+                <input type="number" id="troco" placeholder="Valor para troco" value="0">
+            </div>
+            <p id="erro-pagamento" style="color: red; display: none;">⚠️ Selecione uma forma de pagamento antes de continuar!</p>
+            
+            <button onclick="checkPaymentMethod()">Confirmar Endereço e Pagamento</button>
+            <button onclick="closeAddressPopup()" style="background: gray; color: white; border: none; padding: 10px 20px; cursor: pointer; font-size: 1em; margin-top: 10px; border-radius: 5px;">Fechar</button>
+        </div>
+    </div>
+
+    <!-- Popup para perguntar sobre o troco -->
+    <div id="popup-troco" style="display: none; background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #444; padding: 20px; border-radius: 10px; text-align: center; width: 100%; max-width: 400px;">
+            <h3>Você precisará de troco?</h3>
+            <button onclick="showTrocoInput(true)" style="background: orange; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">Sim</button>
+            <button onclick="showTrocoInput(false)" style="background: gray; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">Não</button>
+            
+            <!-- Campo para informar valor -->
+            <div id="troco-input-div" style="display: none; margin-top: 10px;">
+                <label for="valor-troco">Para quanto você pagará?</label>
+                <input type="number" id="valor-troco" placeholder="Ex: 50,00" style="width: 80%; padding: 5px; background-color: #333; color: white; border: 1px solid #555; text-align: center;">
+                <button onclick="confirmTroco()" style="background: orange; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px; margin-top: 10px;">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Popup para seleção de adicionais -->
+    <div id="popup-adicionais" style="display: none; background: rgba(0, 0, 0, 0.7); position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 999; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #444; padding: 20px; border-radius: 10px; text-align: center; width: 100%; max-width: 400px;">
+            <h3>Escolha seus adicionais</h3>
+
+            <div class="item">
+                <div class="controls">
+                    <button class="btn" onclick="updateAdditional('Bacon', 'decrease')">-</button>
+                    <input type="number" id="Bacon-quantity" value="0" readonly>
+                    <button class="btn" onclick="updateAdditional('Bacon', 'increase')">+</button>
+                </div>
+                <span>Bacon (+R$ 3,00)</span>
+            </div>
+
+            <div class="item">
+                <div class="controls">
+                    <button class="btn" onclick="updateAdditional('Queijo', 'decrease')">-</button>
+                    <input type="number" id="Queijo-quantity" value="0" readonly>
+                    <button class="btn" onclick="updateAdditional('Queijo', 'increase')">+</button>
+                </div>
+                <span>Queijo (+R$ 2,50)</span>
+            </div>
+
+            <div class="item">
+                <div class="controls">
+                    <button class="btn" onclick="updateAdditional('Ovo', 'decrease')">-</button>
+                    <input type="number" id="Ovo-quantity" value="0" readonly>
+                    <button class="btn" onclick="updateAdditional('Ovo', 'increase')">+</button>
+                </div>
+                <span>Ovo (+R$ 2,00)</span>
+            </div>
+
+            <button onclick="confirmAdditionalSelection()" style="margin-top: 15px; background: orange; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">Confirmar Adicionais</button>
+            <button onclick="skipExtras()" style="margin-top: 10px; background: gray; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 5px;">Pular</button>
+        </div>
+    </div>
+
+
+    <!-- Popup para confirmação do pedido -->
+    <div id="popup-confirmation">
+        <div>
+            <h3>Você deseja confirmar seu pedido?</h3>
+            <div id="order-summary">
+                ✨ Resumo do Pedido ✨ <br>
+                1x Misto Quente ............................ R$ 12,90 <br><br>
+
+                ***************************************************** <br><br>
+
+                📛 Nome: <span id="summary-nome">-</span><br>
+                📍 Endereço: <span id="summary-endereco">-</span><br>
+                🏘 Bairro: <span id="summary-bairro">-</span><br>
+                💳 Forma de Pagamento: <span id="summary-pagamento">-</span><br>
+            </div>
+            <button onclick="sendToWhatsApp()">Ok</button>
+            <button class="cancel" onclick="cancelRequest()">Cancelar</button> <!-- Aqui foi corrigido -->
+        </div>
+    </div>
+
+    <script>
+        function cancelRequest() {
+            let confirmCancel = confirm("Tem certeza de que deseja cancelar o pedido?");
+            if (confirmCancel) {
+                document.getElementById("popup-confirmation").style.display = "none"; // Fecha o popup de confirmação
+            }
+        }
+    </script>
+
+
+    <script>
+        // Função para alternar entre as categorias de menu
+    function showMenu(menu) {
+        const allMenus = document.querySelectorAll('.menu-items');
+        allMenus.forEach(menuItem => menuItem.classList.remove('active'));  // Remove a classe active de todos os menus
+        
+        const selectedMenu = document.getElementById(menu);
+        selectedMenu.classList.add('active');  // Adiciona a classe active ao menu selecionado
+    }
+
+    // Função para fechar o popup de endereço sem confirmar o pedido
+       function closeAddressPopup() {
+           document.getElementById("popup-endereco").style.display = "none";
+       }
+
+       // Função para exibir um alerta ao cancelar o pedido
+       function cancelRequest() {
+           let confirmCancel = confirm("Tem certeza de que deseja cancelar o pedido?");
+           if (confirmCancel) {
+               document.getElementById("popup-confirmation").style.display = "none"; // Fecha o popup
+           }
+       }
+
+    // Função para verificar a forma de pagamento e abrir o pop-up de troco
+    function checkPaymentMethod() {
+        let paymentMethod = document.getElementById("forma-pagamento").value;
+        let erroPagamento = document.getElementById("erro-pagamento");
+
+        if (!paymentMethod) {
+            erroPagamento.style.display = "block"; // Exibe o aviso de erro
+            return; // Impede o avanço
+        } else {
+            erroPagamento.style.display = "none"; // Esconde o erro se já escolheu
+        }
+
+        if (paymentMethod === "dinheiro") {
+            document.getElementById("popup-troco").style.display = "flex"; // Mostra o pop-up do troco
+        } else {
+            proceedToOrder(); // Se não for dinheiro, vai direto para o pedido
+        }
+    }
+
+
+
+    // Exibe ou oculta o campo de valor do troco
+    function showTrocoInput(needsChange) {
+        if (needsChange) {
+            document.getElementById("troco-input-div").style.display = "block";
+        } else {
+            localStorage.setItem("troco", "Não precisa"); // Armazena a resposta
+            document.getElementById("popup-troco").style.display = "none";
+            proceedToOrder(); // Continua para o pedido
+        }
+    }
+
+    // Confirma o valor do troco e segue para o pedido
+    function confirmTroco() {
+        let trocoValue = document.getElementById("valor-troco").value;
+        if (trocoValue.trim() === "" || isNaN(trocoValue) || trocoValue <= 0) {
+            alert("Por favor, informe um valor válido para o troco.");
+            return;
+        }
+
+        sessionStorage.setItem("troco", "Precisa de troco para R$ " + parseFloat(trocoValue).toFixed(2));
+        document.getElementById("popup-troco").style.display = "none";
+        proceedToOrder(); // Continua para o pedido
+    }
+
+
+    // Exibe o popup de adicionais antes do resumo do pedido
+    function askForExtras() {
+        document.getElementById("popup-endereco").style.display = "none"; // Fecha o popup de endereço
+        document.getElementById("popup-adicionais").style.display = "flex"; // Exibe o popup de adicionais
+    }
+
+    // Atualiza a quantidade de adicionais
+    function updateAdditional(itemName, action) {
+        const quantityInput = document.getElementById(`${itemName}-quantity`);
+        let currentQuantity = parseInt(quantityInput.value);
+
+        if (action === 'increase') {
+            quantityInput.value = currentQuantity + 1;
+        } else if (action === 'decrease' && currentQuantity > 0) {
+            quantityInput.value = currentQuantity - 1;
+        }
+    }
+
+    // Confirma os adicionais e exibe o resumo do pedido
+    function confirmAdditionalSelection() {
+        document.getElementById("popup-adicionais").style.display = "none"; // Fecha o popup de adicionais
+        document.getElementById("popup-confirmation").style.display = "flex"; // Abre o resumo do pedido
+
+        let orderSummary = "✨ Resumo do Pedido ✨\n\n";
+        let total = 0;
+
+        // Itens principais
+        let items = [
+            { name: "X-Frango Bacon Egg", quantity: parseInt(document.getElementById("X-Frango Bacon Egg-quantity").value), price: 12.90 },
+            { name: "Batata Frita", quantity: parseInt(document.getElementById("Batata Frita-quantity").value), price: 8.50 },
+            { name: "Refrigerante", quantity: parseInt(document.getElementById("Refrigerante-quantity").value), price: 5.00 }
+        ];
+
+        items.forEach(item => {
+            if (item.quantity > 0) {
+                total += item.quantity * item.price;
+                orderSummary += `*${item.quantity}x* ${item.name}\n`;
+            }
+        });
+
+        // Adicionais
+        let extras = [
+            { name: "Bacon", quantity: parseInt(document.getElementById("Bacon-quantity").value), price: 3.00 },
+            { name: "Queijo", quantity: parseInt(document.getElementById("Queijo-quantity").value), price: 2.50 },
+            { name: "Ovo", quantity: parseInt(document.getElementById("Ovo-quantity").value), price: 2.00 }
+        ];
+
+        extras.forEach(extra => {
+            if (extra.quantity > 0) {
+                total += extra.quantity * extra.price;
+                orderSummary += `*${extra.quantity}x* ${extra.name} (Adicional)\n`;
+            }
+        });
+
+        orderSummary += `\n💰 *TOTAL:* R$ ${total.toFixed(2)}\n\n`;
+
+        document.getElementById("order-summary").innerHTML = orderSummary;
+    }
+
+
+    // Exibe a primeira categoria (Lanches) ao carregar a página
+    window.onload = function() {
+        showMenu('lanches');  // Chama a função para mostrar a categoria "Lanches" ao carregar a página
+    }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        loadUserData(); // Carrega os dados salvos no localStorage
+
+        document.getElementById("forma-pagamento").addEventListener("change", function () {
+            document.getElementById("troco-div").style.display = this.value === "dinheiro" ? "block" : "none";
+        });
+    });
+
+    function loadUserData() {
+        const nome = localStorage.getItem("nome");
+        const endereco = localStorage.getItem("endereco");
+        const bairro = localStorage.getItem("bairro");
+        const numero = localStorage.getItem("numero");
+        const complemento = localStorage.getItem("complemento");
+        const pagamento = localStorage.getItem("pagamento");
+
+        if (nome && endereco && bairro && numero) {
+            // Se já tiver dados, preenche os campos
+            document.getElementById("nome").value = nome;
+            document.getElementById("endereco").value = endereco;
+            document.getElementById("bairro").value = bairro;
+            document.getElementById("numero").value = numero;
+            document.getElementById("complemento").value = complemento || "";
+            document.getElementById("forma-pagamento").value = ""; // Começa SEM seleção
+            // Esconde o formulário de endereço, já que os dados foram preenchidos antes
+            document.getElementById("popup-endereco").style.display = "none";
+        }
+    }
+
+        function updateQuantity(itemName, action) {
+            const quantityInput = document.getElementById(`${itemName}-quantity`);
+            let currentQuantity = parseInt(quantityInput.value);
+            
+            if (action === 'increase') {
+                quantityInput.value = currentQuantity + 1;
+            } else if (action === 'decrease' && currentQuantity > 0) {
+                quantityInput.value = currentQuantity - 1;
+            }
+        }
+
+        function askAddress() {
+            document.getElementById("popup-endereco").style.display = "flex";
+        }
+
+        
+        function proceedToOrder() {
+    localStorage.setItem("nome", document.getElementById("nome").value);
+    localStorage.setItem("endereco", document.getElementById("endereco").value);
+    localStorage.setItem("bairro", document.getElementById("bairro").value);
+    localStorage.setItem("numero", document.getElementById("numero").value);
+    localStorage.setItem("complemento", document.getElementById("complemento").value);
+    localStorage.setItem("pagamento", document.getElementById("forma-pagamento").value);
+
+    document.getElementById("popup-endereco").style.display = "none";
+    askForExtras();
+
+
+    let orderSummary = "✨ Resumo do Pedido ✨\n\n";
+    let total = 0;
+
+    let items = [
+        { name: "X-Frango Bacon Egg", quantity: parseInt(document.getElementById("X-Frango Bacon Egg-quantity").value), price: 12.90 },
+        { name: "Batata Frita", quantity: parseInt(document.getElementById("Batata Frita-quantity").value), price: 8.50 },
+        { name: "Refrigerante", quantity: parseInt(document.getElementById("Refrigerante-quantity").value), price: 5.00 }
+    ];
+
+    items.forEach(item => {
+        if (item.quantity > 0) {
+            total += item.quantity * item.price;
+            orderSummary += `${item.quantity}x ${item.name}\n`;
+        }
+    });
+
+    orderSummary += `<p class="total-destaque">💰 Total: R$ ${total.toFixed(2)}</p>`;
+
+
+    if (!localStorage.getItem("dadosConfirmados")) {
+        orderSummary += `📛 Nome: ${document.getElementById("nome").value}\n`;
+        orderSummary += `📍 Endereço: ${document.getElementById("endereco").value}\n`;
+        orderSummary += `🏘 Bairro: ${document.getElementById("bairro").value}\n`;
+        orderSummary += `💳 Forma de Pagamento: ${document.getElementById("forma-pagamento").value}\n`;
+        localStorage.setItem("dadosConfirmados", "true");
+    }
+
+    document.getElementById("order-summary").innerHTML = orderSummary;
+
+}
+
+
+
+
+
+
+
+
+    
+// Testando os exemplos
+console.log(formatOrderLine(1, "X-Frango Bacon Egg", 12.90));
+console.log(formatOrderLine(1, "Batata Frita", 8.50));
+console.log(formatOrderLine(1, "Refrigerante", 5.00));
+
+
+// Exemplo de uso:
+console.log(formatOrderLine(2, "X-Frango Bacon Egg", 12.90));
+
+
+
+        function sendToWhatsApp() {
+            let nome = localStorage.getItem("nome") || "-";
+            let endereco = localStorage.getItem("endereco") || "-";
+            let bairro = localStorage.getItem("bairro") || "-";
+            let pagamento = localStorage.getItem("pagamento") || "-";
+            
+            let trocoInfo = sessionStorage.getItem("troco") || "Não informado";
+            sessionStorage.removeItem("troco"); // Apaga o troco após enviar o pedido
+
+            // Limpa o campo de entrada do troco na tela
+            let trocoInput = document.getElementById("valor-troco");
+            if (trocoInput) {
+                trocoInput.value = ""; // Esvazia o campo de input
+            }
+
+            let message = "✨ *RESUMO DO PEDIDO* ✨\n\n";
+            let total = 0;
+
+            let items = [
+                { name: "X-Frango Bacon Egg", quantity: parseInt(document.getElementById("X-Frango Bacon Egg-quantity").value), price: 12.90 },
+                { name: "Batata Frita", quantity: parseInt(document.getElementById("Batata Frita-quantity").value), price: 8.50 },
+                { name: "Refrigerante", quantity: parseInt(document.getElementById("Refrigerante-quantity").value), price: 5.00 }
+            ];
+
+            items.forEach(item => {
+                if (item.quantity > 0) {
+                    total += item.quantity * item.price;
+                    message += `*${item.quantity}x* ${item.name}\n`;
+                }
+            });
+
+            message += `\n💰 *TOTAL:* R$ ${total.toFixed(2)}\n\n`;
+            message += `📝 *NOME:* ${nome}\n`;
+            message += `📍 *ENDEREÇO:* ${endereco}\n`;
+            message += `🏘️ *BAIRRO:* ${bairro}\n`;
+            message += `💳 *FORMA DE PAGAMENTO:* ${pagamento}\n`;
+
+            if (pagamento === "dinheiro") {
+                message += `💵 *Troco:* ${trocoInfo}\n`;
+            }
+
+            // Fecha o último pop-up antes de abrir o WhatsApp
+            document.getElementById("popup-confirmation").style.display = "none";
+
+            let whatsappUrl = `https://wa.me/5511947406124?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, "_blank");
+        }
+
+
+
+
+        function skipExtras() {
+            document.getElementById("popup-adicionais").style.display = "none"; // Fecha o pop-up de adicionais
+            document.getElementById("popup-confirmation").style.display = "flex"; // Abre o resumo do pedido
+        }
+
+
+
+
+    // Exibe a categoria "lanches" ao carregar a página
+        window.onload = function() {
+            showMenu('lanches');  // Exibe a categoria 'lanches' ao carregar a página
+        };
+
+
+
+        function cancelRequest() {
+            document.getElementById("popup-confirmation").style.display = "none"; // Fecha o popup de confirmação
+        }
+
+        // Exibe a primeira categoria ao carregar a página
+        showMenu('lanches');
+    </script>
+</body>
+</html>
